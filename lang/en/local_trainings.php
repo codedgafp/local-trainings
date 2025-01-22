@@ -72,7 +72,7 @@ $string['contactproducerorganization_help']
 $string['thumbnail'] = 'Vignette';
 $string['thumbnail_help_icon'] = 'Aide sur Vignette';
 $string['thumbnail_help']
-    = 'C\'est l\'image qui s\'affiche dans le tableau de bord et dans l\'offre de formation pour illustrer cette formation. Elle est toujours affichée à côté du libellé de la formation, elle n\'a donc pas besoin de répéter le nom de la formation.';
+    = 'C\'est l\'image qui s\'affiche dans la page d’accueil et dans l\'offre de formation pour illustrer cette formation. Elle est toujours affichée à côté du libellé de la formation, elle n\'a donc pas besoin de répéter le nom de la formation.';
 $string['status'] = 'Statut';
 $string['createdat'] = 'Date de création';
 $string['traininlastupdatedate'] = 'Date de dernière mise à jour';
