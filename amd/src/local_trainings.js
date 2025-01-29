@@ -314,12 +314,22 @@ define([
                         id: 'confirm-duplicate-training',
                         class: "btn btn-primary",
                         click: function (e) {
+                            let formwarning = $('.duplicate-training-form-warning');
+                            formwarning.addClass("none").html();
+                            
+                            var trainingshortname = $('#trainingshortname').val();
+                            var destinationentity = $('#destinationentity').length ? $('#destinationentity').val() : that.params.entityid;
+
+                            if (!trainingshortname.trim()) {
+                                formwarning
+                                    .removeClass("none")
+                                    .html(M.util.get_string('duplicateformationnameerror', 'local_trainings'));
+                                return false;
+                            }
+
                             var dialog = $(this);
                             $('.ui-dialog-buttonset button').attr("disabled", "disabled");
                             $('#confirm-duplicate-training').css('cursor', 'wait').html(M.util.get_string('pleasewait', 'local_trainings'));
-
-                            var trainingshortname = $('#trainingshortname').val();
-                            var destinationentity = $('#destinationentity').length ? $('#destinationentity').val() : that.params.entityid;
 
                             var destinationsubentity = '';
 

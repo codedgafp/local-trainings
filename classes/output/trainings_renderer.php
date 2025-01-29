@@ -80,6 +80,7 @@ class trainings_renderer extends \plugin_renderer_base implements \format_edadmi
                 'duplicatetrainingdialogcontent',
                 'createsessiondialogtitle',
                 'createsessiondialogcontent',
+                'duplicateformationnameerror',
                 'pleasewait',
                 'createtoaddhoc',
                 'sessionanmeused',

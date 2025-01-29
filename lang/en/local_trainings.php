@@ -91,6 +91,7 @@ $string['managetrainings'] = 'Gérer les formations';
 $string['trainingmanagement'] = 'Gestion des formations';
 $string['debugaddupdatetraining'] = 'Cannot add or update a training: {$a}';
 $string['destinationentity'] = 'Espace dédié de destination';
+$string['duplicateformationnameerror'] = 'Le nom abrégé de la formation est obligatoire.';
 $string['pleasewait'] = 'Veuillez patienter...';
 $string['warningsinfo']
     = 'Les champs marqués d\'un <i class="icon fa fa-exclamation-circle text-warning fa-fw "></i>sont requis pour passer au statut "Elaboration terminée".';
