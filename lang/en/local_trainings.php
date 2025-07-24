@@ -66,7 +66,7 @@ $string['producerorganizationlogo'] = 'Logo de l’organisme producteur';
 $string['designers'] = 'Concepteurs';
 $string['designers_help']
     = 'Il est possible de préciser les concepteurs à l\'origine de cette formation. En complément, il est vivement recommandé de mettre à disposition une page de crédits accessible directement dans la formation, ceci afin de préciser non seulement les auteurs mais aussi tous les éléments de droits d\'auteur liés aux contenus de la formation.';
-$string['contactproducerorganization'] = 'Adresse mél organisme producteur';
+$string['contactproducerorganization'] = 'Adresse mél de contact';
 $string['contactproducerorganization_help']
     = 'Cette adresse doit permettre de prendre contact avec l\'organisme qui a conçu la formation pour répondre à des interrogations concernant l\'esprit de cette formation ou pour remonter toute difficulté rencontrée ou tout  dysfonctionnement identifié.';
 $string['thumbnail'] = 'Vignette';
