@@ -23,6 +23,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+
 defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
@@ -30,6 +31,8 @@ global $CFG;
 require_once($CFG->dirroot . '/local/trainings/lib.php');
 
 class local_training_lib_testcase extends advanced_testcase {
+
+     use local_trainings\helper_tests\navigation_trait_helper;
 
     /**
      * local_trainings_extend_settings_navigation in course category
@@ -128,29 +131,37 @@ class local_training_lib_testcase extends advanced_testcase {
         $PAGE->set_context($context);
         $PAGE->set_course($course);
         $PAGE->set_url('/course/view.php', ['id' => $course->id]);
-        $listelink = $PAGE->settingsnav->find('courseadmin', navigation_node::TYPE_COURSE)->get_children_key_list();
+        $courseadminnode = $PAGE->settingsnav->find('courseadmin', navigation_node::TYPE_COURSE);
+        $this->assertNotNull($courseadminnode);
 
-        self::assertTrue(in_array('editsettings', $listelink));
-        self::assertTrue(in_array('users', $listelink));
-        self::assertTrue(in_array('filtermanagement', $listelink));
-        self::assertTrue(in_array('coursereports', $listelink));
-        self::assertTrue(in_array('gradebooksetup', $listelink));
-        self::assertTrue(in_array('coursebadges', $listelink));
-        self::assertTrue(in_array('import', $listelink));
-        self::assertTrue(in_array('backup', $listelink));
-        self::assertTrue(in_array('restore', $listelink));
-        self::assertTrue(in_array('copy', $listelink));
-        self::assertTrue(in_array('reset', $listelink));
-        self::assertTrue(in_array('questionbank', $listelink));
+        //Recursively checks for the presence of the expected elements
+        $expectedkeys = [
+            'editsettings', 'users', 'filtermanagement', 'coursereports',
+            'gradebooksetup', 'coursebadges', 'questionbank',
+            'import', 'backup', 'restore', 'copy', 'reset'
+        ];
 
-        self::assertFalse(in_array('training', $listelink));
-        self::assertFalse(in_array('content_bank', $listelink));
-        self::assertFalse(in_array('enrol_users', $listelink));
-        self::assertFalse(in_array('course_activities', $listelink));
-        self::assertFalse(in_array('training_completion_report', $listelink));
-        self::assertFalse(in_array('activities_completion_report', $listelink));
-        self::assertFalse(in_array('group', $listelink));
+        foreach ($expectedkeys as $key) {
+            $this->assertTrue(
+                $this->navigation_node_contains_key($courseadminnode, $key),
+                "The key '$key' is missing from the navigation."
+            );
+        }
 
+        // Checks that certain elements are not present."
+        $unexpectedkeys = [
+            'training', 'content_bank', 'enrolled_users', 'enroll_users',
+            'course_activities', 'training_completion_report',
+            'activities_completion_report', 'group', 'session_to_training'
+        ];
+
+        foreach ($unexpectedkeys as $key) {
+            $this->assertFalse(
+                $this->navigation_node_contains_key($courseadminnode, $key),
+                "The key '$key' should not be present in the navigation."
+            );
+        }
+       
         // Set navigation node.
         $settingsnav = new \navigation_node(['text' => 'navigation test']);
 
@@ -206,29 +217,23 @@ class local_training_lib_testcase extends advanced_testcase {
         $PAGE->set_context($context);
         $PAGE->set_course($course);
         $PAGE->set_url(new moodle_url('/course/view.php', ['id' => $course->id]));
-        $listelink = $PAGE->settingsnav->find('courseadmin', navigation_node::TYPE_COURSE)->get_children_key_list();
+        $courseadminnode = $PAGE->settingsnav->find('courseadmin', navigation_node::TYPE_COURSE);
+        $expectedkeys = [
+            'editsettings', 'users', 'filtermanagement', 'coursereports',
+            'gradebooksetup', 'coursebadges', 'questionbank',
+            'import', 'backup', 'restore', 'copy', 'reset',
+            'training', 'content_bank', 'enrol_users',
+            'course_activities', 'training_completion_report',
+            'activities_completion_report', 'group',  'notes', 
+            'coursetools', 'coursereuse'
+        ];
 
-        self::assertTrue(in_array('editsettings', $listelink));
-        self::assertTrue(in_array('users', $listelink));
-        self::assertTrue(in_array('filtermanagement', $listelink));
-        self::assertTrue(in_array('coursereports', $listelink));
-        self::assertTrue(in_array('gradebooksetup', $listelink));
-        self::assertTrue(in_array('coursebadges', $listelink));
-        self::assertTrue(in_array('import', $listelink));
-        self::assertTrue(in_array('backup', $listelink));
-        self::assertTrue(in_array('restore', $listelink));
-        self::assertTrue(in_array('copy', $listelink));
-        self::assertTrue(in_array('reset', $listelink));
-        self::assertTrue(in_array('questionbank', $listelink));
-
-        self::assertTrue(in_array('training', $listelink));
-        self::assertTrue(in_array('content_bank', $listelink));
-        self::assertTrue(in_array('enrol_users', $listelink));
-        self::assertTrue(in_array('course_activities', $listelink));
-        self::assertTrue(in_array('training_completion_report', $listelink));
-        self::assertTrue(in_array('activities_completion_report', $listelink));
-        self::assertTrue(in_array('group', $listelink));
-
+        foreach ($expectedkeys as $key) {
+                $this->assertTrue(
+                    $this->navigation_node_contains_key($courseadminnode, $key),
+                    "Expected navigation key '$key' not found."
+                );
+            }
         self::resetAllData();
     }
 }
